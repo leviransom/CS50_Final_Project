@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 
-# test
 
 
 class Script():
@@ -62,7 +62,7 @@ class Script_Analyzer(Script):
 
     def count_lines(self):
 
-        '''Returns the number of lines that a script file contains'''
+        '''Returns the number of lines that a script contains'''
 
         line_count = 0
         for line in self.iterable:
@@ -71,6 +71,30 @@ class Script_Analyzer(Script):
             else:
                 line_count += 1
         return f'Total lines in script: {line_count}'
+    
+    def count_words(self):
+
+        '''Returns the number of spoken and nonspoken words'''
+
+        word_list = re.findall(r'\b\w+\b', self.script_text.text)
+        return f'Total spoken and nonspoken words in script: {len(word_list)}'
+    
+    def count_spec_word(self):
+
+        '''Returns the number of times a specific word is used'''
+
+        spec_word = input('Insert a word: ').strip()
+        word_list = re.findall(fr'{spec_word}', self.script_text.text, re.IGNORECASE)
+        return f'{spec_word} is used {len(word_list)} times'
+    
+    def fetch_spec_word_lines(self):
+
+        '''Returns each line that a specific word is used in'''
+
+        spec_word = input('Insert a word: ').strip()
+        for line in self.iterable:
+            if re.search(re.escape(spec_word), line, re.IGNORECASE):
+                ...
 
 
 
@@ -81,7 +105,7 @@ def main():
     url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
     star_wars = Script(url)
     analyzer = Script_Analyzer(url)
-    print(star_wars)
+    print(analyzer.count_specific_word())
 
 if __name__ == '__main__':  
     main()
