@@ -10,7 +10,6 @@ class Script():
 
     def __init__(self, url):
 
-        '''Will construct a Script object'''
 
         self.url = url
         self.response = self.get_response(self.url)
@@ -19,13 +18,10 @@ class Script():
 
     def __str__(self):
 
-        '''Returns a string representation of the Script object'''
 
         return f'\nSCRIPT DATA BELOW:\n\nURL: {self.url}\nResponse: {self.response}\n'
     
     def get_response(self, url):
-
-        '''Will retrieve a response object using the requests library and return the object if the status code is 200'''
 
         response = requests.get(url)
         if response.status_code == 200:
@@ -35,7 +31,6 @@ class Script():
                 
     def create_script_file(self):
 
-        '''Will create a new text file and write the script scraped from the HTML onto it'''
 
         self.soup = BeautifulSoup(self.response.text, 'html.parser')
         self.script_text = self.soup.find('pre')
@@ -44,7 +39,6 @@ class Script():
 
     def create_iterable_script(self):
 
-        '''Returns a list created from the script_text variable'''
 
         iterable = self.script_text.text.splitlines()
         return iterable
@@ -92,20 +86,20 @@ class Script_Analyzer(Script):
         '''Returns each line that a specific word is used in'''
 
         spec_word = input('Insert a word: ').strip()
+        lines = ""
         for line in self.iterable:
             if re.search(re.escape(spec_word), line, re.IGNORECASE):
-                ...
+                lines += f"{line}\n"
+        return lines
 
-
-
-
+                
 
 
 def main():
     url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
-    star_wars = Script(url)
-    analyzer = Script_Analyzer(url)
-    print(analyzer.count_specific_word())
+    star_wars = Script_Analyzer(url)
+    print(star_wars.fetch_spec_word_lines())
+    
 
 if __name__ == '__main__':  
     main()
