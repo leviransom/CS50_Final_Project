@@ -129,29 +129,29 @@ class Script_Analyzer(Script):
                 spec_sents += sentence + '\n'
         return spec_sents
     
-        def fetch_char_lines(self):
-        
-            with open('new_script.txt', 'r') as file:
-                script_lines = file.readlines()
+    def fetch_char_lines(self):
+    
+        with open('new_script.txt', 'r') as file:
+            script_lines = file.readlines()
 
-                char_lines = []
-                is_char_line = False
-                char = input("Insert Character: ").strip().upper()
-                for line in script_lines:
-                    if line.strip().startswith(char):
-                        is_char_line = True
-                        char_lines.append(line.strip())
-                    elif is_char_line and line.strip():
-                    
-                        char_lines.append(line.strip())
-                    else:
-                        is_char_line = False
-                    
-                lines = ""
-                for line in char_lines:
-                    lines += f"{line}\n"
-                    
-                return lines
+            char_lines = []
+            is_char_line = False
+            char = input("Insert Character: ").strip().upper()
+            for line in script_lines:
+                if line.strip().startswith(char):
+                    is_char_line = True
+                    char_lines.append(line.strip())
+                elif is_char_line and line.strip():
+                
+                    char_lines.append(line.strip())
+                else:
+                    is_char_line = False
+                
+            lines = ""
+            for line in char_lines:
+                lines += f"{line}\n"
+                
+            return lines
 
 
 def main():
