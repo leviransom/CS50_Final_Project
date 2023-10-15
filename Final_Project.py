@@ -91,14 +91,35 @@ class Script_Analyzer(Script):
             if re.search(re.escape(spec_word), line, re.IGNORECASE):
                 lines += f"{line}\n"
         return lines
+    def fetch_char_lines(self):
+        
+        with open('new_script.txt', 'r') as file:
+            script_lines = file.readlines()
 
+            char_lines = []
+            is_char_line = False
+            char = input("Insert Character: ").strip().upper()
+            for line in script_lines:
+                if line.strip().startswith(char):
+                    is_char_line = True
+                    char_lines.append(line.strip())
+                elif is_char_line and line.strip():
                 
+                    char_lines.append(line.strip())
+                else:
+                    is_char_line = False
+                
+            lines = ""
+            for line in char_lines:
+                lines += f"{line}\n"
+                
+            return lines
 
 
 def main():
     url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
     star_wars = Script_Analyzer(url)
-    print(star_wars.fetch_spec_word_lines())
+    print(star_wars.fetch_char_lines())
     
 
 if __name__ == '__main__':  
