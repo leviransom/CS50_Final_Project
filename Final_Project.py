@@ -150,6 +150,28 @@ class Script_Analyzer(Script):
             lines = ""
             for line in char_lines:
                 lines += f"{line}\n"
+        return lines
+    def fetch_char_lines(self):
+        
+        with open('new_script.txt', 'r') as file:
+            script_lines = file.readlines()
+
+            char_lines = []
+            is_char_line = False
+            char = input("Insert Character: ").strip().upper()
+            for line in script_lines:
+                if line.strip().startswith(char):
+                    is_char_line = True
+                    char_lines.append(line.strip())
+                elif is_char_line and line.strip():
+                
+                    char_lines.append(line.strip())
+                else:
+                    is_char_line = False
+                
+            lines = ""
+            for line in char_lines:
+                lines += f"{line}\n"
                 
             return lines
 
@@ -158,7 +180,7 @@ def main():
     url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
     test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
     star_wars = Script_Analyzer(url)
-    print(star_wars.count_words())
+    print(star_wars.fetch_spec_word_lines())
     
 
 if __name__ == '__main__':  
