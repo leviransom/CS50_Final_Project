@@ -29,14 +29,17 @@ class Script():
 
         the = 'the '
         # Check for conjugations at the beginning of a movie name
-        conj = ["an", "the", "and", "but", "or", "for", "nor", "in", "on", "under", "with", "to", "of", "by", "as"]
+        conj = ("an", "the", "and", "but", "or", "for", "nor", "in", "on", "under", "with", "to", "of", "by", "as")
         movie = input("Insert a movie name: ").strip().title()
         words = movie.split()
-        path = ""
-        for word in words:
+        path = ''
+        for index, word in enumerate(words):
             if word.lower() in conj:
-                word = word.lower()
-                path += f"{word} "
+                if index == 0 and word.lower() != the.strip():
+                    path += f'{word} '
+                else:
+                    word = word.lower()
+                    path += f"{word} "
             else:
                 path += f"{word} "
         if path.lower().startswith(the):
@@ -155,7 +158,7 @@ def main():
     url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
     test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
     star_wars = Script_Analyzer(url)
-    print(star_wars.fetch_char_lines())
+    print(star_wars.count_lines())
     
 
 if __name__ == '__main__':  
