@@ -183,6 +183,7 @@ class Script_Analyzer(Script):
 
 def main():
     movie = Script_Analyzer()
+    print(movie.url)
     print(movie.fetch_chars())
     print(movie.fetch_char_lines())
 
