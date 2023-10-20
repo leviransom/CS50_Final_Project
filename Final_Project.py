@@ -153,7 +153,7 @@ class Script_Analyzer(Script):
         is_char_line = False
         char = input("Insert character name: ").strip().upper()
         for line in self.iterable:
-            if line.strip().startswith(char):
+            if line.strip() == char:
                 is_char_line = True
                 char_lines.append(line.strip())
             elif is_char_line and line.strip():
