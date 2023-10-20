@@ -59,8 +59,20 @@ class Script:
             else:
                 path += f"{word} "
         if path.lower().startswith(the):
-            path = path.replace(the, "").strip() + ",-The"
+            path = path.replace(the, '').strip() + ",-The"
+        path1 = ''
+        paths = path.split()
+        if paths[0] in conj:
+            paths[0] = paths[0].capitalize()
+            for i in paths:
+                path1 += f"{i} "
+            path = path1
+        
+            
+
+            
         path = path.strip().replace(" ", "-") + ".html"
+        
         return f"https://imsdb.com/scripts/{path}"
 
     def get_response(self, url):
@@ -182,11 +194,11 @@ class Script_Analyzer(Script):
 
 
 def main():
-    movie = Script_Analyzer()
-    print(movie.url)
-    print(movie.fetch_chars())
-    print(movie.fetch_char_lines())
-
+    url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
+    test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
+    star_wars = Script_Analyzer(url)
+    print(star_wars.fetch_char_lines())
+    
 
 if __name__ == "__main__":
     main()
