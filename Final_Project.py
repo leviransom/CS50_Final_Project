@@ -62,8 +62,20 @@ class Script:
             else:
                 path += f"{word} "
         if path.lower().startswith(the):
-            path = path.replace(the, "").strip() + ",-The"
+            path = path.replace(the, '').strip() + ",-The"
+        path1 = ''
+        paths = path.split()
+        if paths[0] in conj:
+            paths[0] = paths[0].capitalize()
+            for i in paths:
+                path1 += f"{i} "
+            path = path1
+        
+            
+
+            
         path = path.strip().replace(" ", "-") + ".html"
+        
         return f"https://imsdb.com/scripts/{path}"
 
     def get_response(self, url):
