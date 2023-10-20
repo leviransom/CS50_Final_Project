@@ -213,7 +213,8 @@ class Script_Analyzer(Script):
 def main():
     movie = Script_Analyzer()
     print(movie.url)
-    print(movie)
+    print(movie.fetch_chars())
+    print(movie.fetch_char_lines())
 
 
 if __name__ == "__main__":
