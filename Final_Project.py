@@ -204,7 +204,7 @@ class Script_Analyzer(Script):
 
         chars = set()
         pattern = r"^[A-Z].*[A-Z]$"
-        outliers = ("V/0", "O.S", "EXT.", "INT.", "EX.", "END")
+        outliers = ("V/0", "O.S", "EXT.", "INT.", "EX.", "END", "WRITTEN")
 
         for line in self.iterable:
             line = line.strip()
