@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import art as a
+import time
 
 
 class Script:
@@ -15,7 +17,8 @@ class Script:
     def __str__(self):
         """Returns a string representation of the script"""
 
-        return f"\nSCRIPT DATA BELOW:\n\nURL: {self.url}\nResponse: {self.response}\n"
+        logo = a.text2art("script", font="double")
+        return f"{logo}\nSCRIPT DATA BELOW:\n\nURL: {self.url}\nResponse: {self.response}\n"
 
     @property
     def url(self):
@@ -107,7 +110,16 @@ class Script_Analyzer(Script):
     def __str__(self):
         """Returns a string representation of the analyzer object"""
 
-        return f"Currently analyzing the script located at: {self.url}"
+        logo = a.text2art("script analyzer", font="double")
+        print(f"{logo}\nCurrently analyzing the script located at:\n\n<{self.url}>\n")
+        bars = ("loading1", "loading2", "loading3", "loading4", "loading5", "loading6")
+        percent = 16.6666667
+        for index, bar in enumerate(bars):
+            print("\n" + f"{a.art(bars[index])} {percent:.2f}%" + "\n")
+            time.sleep(1)
+            percent += 16.6666667
+        
+        return "Analyzation complete!"
 
     def count_lines(self):
         """Returns the number of lines that a script contains"""
@@ -222,12 +234,10 @@ class Script_Analyzer(Script):
 
 
 def main():
-    url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
-    test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
-    script = Script_Analyzer()
-    print(script.count_spec_word())
-    print(script.fetch_spec_word_lines())
-    
+    movie = Script_Analyzer()
+    print(movie.url)
+    print(movie)
+
 
 if __name__ == "__main__":
     main()
