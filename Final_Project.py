@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import art as a
+import time
 
 
 class Script:
@@ -15,7 +17,8 @@ class Script:
     def __str__(self):
         """Returns a string representation of the script"""
 
-        return f"\nSCRIPT DATA BELOW:\n\nURL: {self.url}\nResponse: {self.response}\n"
+        logo = a.text2art("script", font="double")
+        return f"{logo}\nSCRIPT DATA BELOW:\n\nURL: {self.url}\nResponse: {self.response}\n"
 
     @property
     def url(self):
@@ -101,7 +104,16 @@ class Script_Analyzer(Script):
     def __str__(self):
         """Returns a string representation of the analyzer object"""
 
-        return f"Currently analyzing the script located at: {self.url}"
+        logo = a.text2art("script analyzer", font="double")
+        print(f"{logo}\nCurrently analyzing the script located at:\n\n<{self.url}>\n")
+        bars = ("loading1", "loading2", "loading3", "loading4", "loading5", "loading6")
+        percent = 16.6666667
+        for index, bar in enumerate(bars):
+            print("\n" + f"{a.art(bars[index])} {percent:.2f}%" + "\n")
+            time.sleep(1)
+            percent += 16.6666667
+        
+        return "Analyzation complete!"
 
     def count_lines(self):
         """Returns the number of lines that a script contains"""
@@ -158,34 +170,11 @@ class Script_Analyzer(Script):
             lines += f"{line}\n"
         return lines
 
-    def fetch_chars(self):
-        """Returns each character whose name is denoted by two words"""
-        # This function requires additional testing/ manipulation as it will sometimes incorrectly provide
-        # output that is not a character but fits within the criteria
-
-        chars = set()
-        pattern = r"^[A-Z].*[A-Z]$"
-        outliers = ("V/0", "O.S", "EXT.", "INT.", "EX.", "END", "WRITTEN")
-
-        for line in self.iterable:
-            line = line.strip()
-            if line.isupper():
-                if re.match(pattern, line):
-                    if not line.startswith(outliers) and not line.endswith(outliers):
-                        if len(line.split()) <= 2:
-                            chars.add(line)
-        sorted(chars)
-        output = ""
-        for i in chars:
-            output += f"{i}\n"
-        return output
-
 
 def main():
     movie = Script_Analyzer()
     print(movie.url)
-    print(movie.fetch_chars())
-    print(movie.fetch_char_lines())
+    print(movie)
 
 
 if __name__ == "__main__":
