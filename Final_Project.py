@@ -184,7 +184,7 @@ class Script_Analyzer(Script):
 
         chars = set()
         pattern = r"^[A-Z].*[A-Z]$"
-        outliers = ("V/0", "O.S", "EXT.", "INT.", "EX.", "END")
+        outliers = ("V/0", "O.S", "EXT.", "INT.", "EX.", "END", "WRITTEN")
 
         for line in self.iterable:
             line = line.strip()
@@ -197,6 +197,7 @@ class Script_Analyzer(Script):
         output = ""
         for i in chars:
             output += f"{i}\n"
+        
         return output
 
 
@@ -204,7 +205,8 @@ def main():
     url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
     test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
     script = Script_Analyzer()
-    print(script.fetch_char_lines())
+    print(script.count_spec_word())
+    print(script.fetch_spec_word_lines())
     
 
 if __name__ == "__main__":
