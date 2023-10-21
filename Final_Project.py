@@ -174,63 +174,8 @@ class Script_Analyzer(Script):
                 is_char_line = False
         lines = ""
         for line in char_lines:
-            if str(line.endswith("*")):
-                line = line.replace("*", "")    
-            if re.match(r'^[0-9]+\.$', line):
-                continue
-            elif "Buff Revised Pages" in line:
-                continue
-            else:
-                lines += f"{line}\n" 
-        lines_list = lines.split("\n")
-        
-        
-        if len(lines_list) > 50:
-            prompt = input(f"{char.title()} has more than 50 lines. Would you like to see the first 50 or all? (answer 'first 50' or 'all'): ").strip()
-            if prompt.lower().startswith("f"):
-                counter = 0
-                lines = ""
-                for i in lines_list:
-                    if counter == 50:
-                        break
-                    elif counter < 50:
-                        lines += f"{i}\n"
-                        if i.startswith(char) == False:    
-                            counter += 1
-                return lines
-            elif prompt.lower().startswith("all"):      
-                return lines
-            else:
-                return f"Not showing {char.title()}'s lines"
-        else:
-            return lines
-                    
-                    
-            
-        
-
-    def fetch_chars(self):
-        """Returns each character whose name is denoted by two words"""
-        # This function requires additional testing/ manipulation as it will sometimes incorrectly provide
-        # output that is not a character but fits within the criteria
-
-        chars = set()
-        pattern = r"^[A-Z].*[A-Z]$"
-        outliers = ("V/0", "O.S", "EXT.", "INT.", "EX.", "END", "WRITTEN")
-
-        for line in self.iterable:
-            line = line.strip()
-            if line.isupper():
-                if re.match(pattern, line):
-                    if not line.startswith(outliers) and not line.endswith(outliers):
-                        if len(line.split()) <= 2:
-                            chars.add(line)
-        sorted(chars)
-        output = ""
-        for i in chars:
-            output += f"{i}\n"
-        
-        return output
+            lines += f"{line}\n"
+        return lines
 
 
 def main():
