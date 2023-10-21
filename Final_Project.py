@@ -58,15 +58,9 @@ class Script:
                     path += f"{word} "
             else:
                 path += f"{word} "
-        if path.lower().startswith(the):
+        if path.startswith(the):
             path = path.replace(the, '').strip() + ",-The"
-        path1 = ''
-        paths = path.split()
-        if paths[0] in conj:
-            paths[0] = paths[0].capitalize()
-            for i in paths:
-                path1 += f"{i} "
-            path = path1
+        
         
             
 
@@ -167,8 +161,31 @@ class Script_Analyzer(Script):
                 is_char_line = False
         lines = ""
         for line in char_lines:
-            lines += f"{line}\n"
-        return lines
+            if re.match(r'^[0-9]+\.$', line):
+                continue
+            else:
+                lines += f"{line}\n" 
+        lines_list = lines.split("\n")
+        
+        if len(lines_list) > 50:
+            prompt = input(f"{char} has more than 50 lines. Would you like to see the first 50?(y/n): ").strip()
+            if prompt.lower().startswith("y"):
+                counter = 0
+                lines = ""
+                for i in lines_list:
+                    if counter == 50:
+                        break
+                    else:
+                        lines += f"{i}\n"
+                        counter += 1
+                return lines
+            return f"Not showing {char}'s lines"
+        else:
+            return lines
+                    
+                    
+            
+        
 
     def fetch_chars(self):
         """Returns each character whose name is denoted by two words"""
@@ -190,6 +207,7 @@ class Script_Analyzer(Script):
         output = ""
         for i in chars:
             output += f"{i}\n"
+        
         return output
 
 
