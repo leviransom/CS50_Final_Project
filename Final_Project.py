@@ -174,8 +174,34 @@ class Script_Analyzer(Script):
                 is_char_line = False
         lines = ""
         for line in char_lines:
-            lines += f"{line}\n"
-        return lines
+            if re.match(r'^[0-9]+\.$', line):
+                continue
+            if "Buff Revised Pages" in char_lines:
+                continue
+            else:
+                lines += f"{line}\n" 
+        lines_list = lines.split("\n")
+        
+        
+        if len(lines_list) > 50:
+            prompt = input(f"{char} has more than 50 lines. Would you like to see the first 50?(y/n): ").strip()
+            if prompt.lower().startswith("y"):
+                counter = 0
+                lines = ""
+                for i in lines_list:
+                    if counter == 50:
+                        break
+                    else:
+                        lines += f"{i}\n"
+                        counter += 1
+                return lines
+            return f"Not showing {char}'s lines"
+        else:
+            return lines
+                    
+                    
+            
+        
 
 
 def main():
