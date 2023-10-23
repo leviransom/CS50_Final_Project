@@ -142,7 +142,8 @@ class Script_Analyzer(Script):
         sentences = re.split(sentence_pattern, self.script_text.text)
         for sentence in sentences:
             if re.search(re.escape(spec_word), sentence, re.IGNORECASE):
-                spec_sents += f"{sentence}\n"
+                spec_sents += f"{str(sentence.replace('*', '').replace('The Wolf of Wall Street   Buff Revised Pages   3/5/13', '').strip())}\n"
+        
         return spec_sents
 
     def fetch_char_lines(self):
@@ -224,7 +225,8 @@ def main():
     url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
     test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
     script = Script_Analyzer()
-    print(script.fetch_char_lines())
+    print(script.count_spec_word())
+    print(script.fetch_spec_word_lines())
     
 
 if __name__ == "__main__":
