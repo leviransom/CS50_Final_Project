@@ -201,11 +201,11 @@ class Script_Analyzer(Script):
 
 
 def main():
-    movie = Script_Analyzer()
-    print(movie.url)
-    print(movie.fetch_chars())
-    print(movie.fetch_char_lines())
-
+    url = 'https://imsdb.com/scripts/Star-Wars-A-New-Hope.html'
+    test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
+    script = Script_Analyzer()
+    print(script.fetch_char_lines())
+    
 
 if __name__ == "__main__":
     main()
