@@ -163,9 +163,12 @@ class Script_Analyzer(Script):
         for line in char_lines:
             if re.match(r'^[0-9]+\.$', line):
                 continue
+            if "Buff Revised Pages" in char_lines:
+                continue
             else:
                 lines += f"{line}\n" 
         lines_list = lines.split("\n")
+        
         
         if len(lines_list) > 50:
             prompt = input(f"{char} has more than 50 lines. Would you like to see the first 50?(y/n): ").strip()
