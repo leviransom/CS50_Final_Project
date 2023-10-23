@@ -161,9 +161,11 @@ class Script_Analyzer(Script):
                 is_char_line = False
         lines = ""
         for line in char_lines:
+            if str(line.endswith("*")):
+                line = line.replace("*", "")    
             if re.match(r'^[0-9]+\.$', line):
                 continue
-            if "Buff Revised Pages" in char_lines:
+            elif "Buff Revised Pages" in line:
                 continue
             else:
                 lines += f"{line}\n" 
@@ -171,18 +173,22 @@ class Script_Analyzer(Script):
         
         
         if len(lines_list) > 50:
-            prompt = input(f"{char} has more than 50 lines. Would you like to see the first 50?(y/n): ").strip()
-            if prompt.lower().startswith("y"):
+            prompt = input(f"{char.title()} has more than 50 lines. Would you like to see the first 50 or all? (answer 'first 50' or 'all'): ").strip()
+            if prompt.lower().startswith("f"):
                 counter = 0
                 lines = ""
                 for i in lines_list:
                     if counter == 50:
                         break
-                    else:
+                    elif counter < 50:
                         lines += f"{i}\n"
-                        counter += 1
+                        if i.startswith(char) == False:    
+                            counter += 1
                 return lines
-            return f"Not showing {char}'s lines"
+            elif prompt.lower().startswith("all"):      
+                return lines
+            else:
+                return f"Not showing {char.title()}'s lines"
         else:
             return lines
                     
