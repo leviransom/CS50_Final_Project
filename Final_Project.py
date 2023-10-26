@@ -153,8 +153,8 @@ class Script_Analyzer(Script):
         sentence_pattern = r"(?<=[.!?])\s+"
         sentences = re.split(sentence_pattern, self.script_text.text)
         for sentence in sentences:
-            if re.search(re.escape(spec_word), sentence, re.IGNORECASE):
-                spec_sents += f"{str(sentence.replace('*', '').replace('The Wolf of Wall Street   Buff Revised Pages   3/5/13', '').strip())}\n"
+            if re.search(re.escape(spec_word), sentence, re.IGNORECASE):        
+                spec_sents += f"{str(sentence.replace('*', '').replace('The Wolf of Wall Street   Buff Revised Pages   3/5/13', ''))}"
         
         return spec_sents
 
