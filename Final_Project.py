@@ -138,7 +138,7 @@ class Script_Analyzer(Script):
 
         spec_sents = ""
         spec_word = input("Insert a word: ").strip()
-        sentence_pattern = r"(?<=[.!?])\s+"
+        sentence_pattern = r"(?<=[.!?:])"
         sentences = re.split(sentence_pattern, self.script_text.text)
         for sentence in sentences:
             if re.search(re.escape(spec_word), sentence, re.IGNORECASE):        
