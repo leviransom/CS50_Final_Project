@@ -174,8 +174,36 @@ class Script_Analyzer(Script):
                 is_char_line = False
         lines = ""
         for line in char_lines:
-            lines += f"{line}\n"
-        return lines
+            if str(line.endswith("*")):
+                line = line.replace("*", "")    
+            if re.match(r'^[0-9]+\.$', line):
+                continue
+            elif "Buff Revised Pages" in line:
+                continue
+            else:
+                lines += f"{line}\n" 
+        lines_list = lines.split("\n")
+        
+        
+        if len(lines_list) > 50:
+            prompt = input(f"{char.title()} has more than 50 lines. Would you like to see the first 50 or all? (answer 'first 50' or 'all'): ").strip()
+            if prompt.lower().startswith("f"):
+                counter = 0
+                lines = ""
+                for i in lines_list:
+                    if counter == 50:
+                        break
+                    elif counter < 50:
+                        lines += f"{i}\n"
+                        if i.startswith(char) == False:    
+                            counter += 1
+                return lines
+            elif prompt.lower().startswith("all"):      
+                return lines
+            else:
+                return f"Not showing {char.title()}'s lines"
+        else:
+            return lines
 
     def fetch_chars(self):
         """Returns each character whose name is denoted by two words"""
@@ -206,7 +234,7 @@ def main():
     test_url = "https://imsdb.com/Movie%20Scripts/Lord%20of%20the%20Rings:%20Fellowship%20of%20the%20Ring,%20The%20Script.html"
     script = Script_Analyzer()
     print(script.count_spec_word())
-    print(script.fetch_spec_word_lines())
+    print(script.fetch_char_lines())
     
 
 if __name__ == "__main__":
